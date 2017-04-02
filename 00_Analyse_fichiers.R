@@ -25,6 +25,17 @@ mobilite1_light <- mobilite1[1:10000,]
 #sauvegarde de l'echantillon
 save(mobilite1_light,file="mob_janvier10000.Rda")
 
+### echantillon à 100 000
+tempmob <- mobilite1 %>%
+  arrange(TRSC_IDE_CAR,TRSC_DAT_VAL ,SEPA_IDE_SEN_PAS)
+
+mobilite1_light <- tempmob[1:100000,]
+save(mobilite1_light,file="mob_janvier100000.Rda")
+
+#1 000 000 lignes
+mobilite1_light <- tempmob[1:1000000,]
+save(mobilite1_light,file="mob_janvier1000000.Rda")
+
 #chargemetn de l'échantillon sauvegardé
 mobilite1_light <- load("mob_janvier10000.Rda")
 dim(mobilite1_light)
@@ -79,3 +90,24 @@ table(mobjan$COZO_IDE_CPL_ZON)
 # 255 : Zone 1-8
 
 ### 
+table(mobjan$PRTA_IDE_PDT_TAR)
+table(mobjan$ECS_IDE_ECS)
+table(mobjan$EQVA_IDE_EQT_VAL)
+table(mobjan$SEPA_IDE_SEN_PAS)
+# 1 : Entrée
+# 2 : sortie
+# 3 : entrée correspondance 
+# 4 : sortie correspondance
+
+#
+table(mobjan$TRSC_FAMI)
+table(mobjan$PRTA_IDE_PDT_TAR)
+table(mobjan$VALI_IDE_VER)
+table(mobjan$TRSC_ANNEE)
+table(mobjan$TRSC_DT_VAL_JOUR)
+table(mobjan$TRSC_DT_VAL_MOIS)
+table(mobjan$TRSC_DT_VAL_ANNEE)
+
+##
+t <- mobjan %>%
+  arrange(TRSC_IDE_CAR,TRSC_DAT_VAL ,SEPA_IDE_SEN_PAS)
