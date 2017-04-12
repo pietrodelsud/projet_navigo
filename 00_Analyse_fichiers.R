@@ -70,6 +70,7 @@ charg <- function(n){
   ### choix des tronçons retenus
   sel <-c("12","13","14","32","33","34")
   
+  #12 14 32 34
   mobjan3 <- mobjan2[mobjan2$tron %in% sel,]
   
   # calcul durée tronçon
@@ -107,8 +108,15 @@ saveRDS(mobt1,file="sncf_t1_2015.Rda")
 
 mobt1 <- readRDS("sncf_t1_2015.Rda")
 
+ech <- mobt1[1:1000000,]
+e2 <- mobt1[mobt1$duree < 150,]
+e3 <- mobt1[(mobt1$duree < 150 & mobt1$duree>0) ,]
 
 ## Quelques stats
+table(mobt1$tron)
+table(e2$tron)
+table(e3$TRSC_DT_VAL_MOIS)
+
 # hist(as.numeric(mobjan3$duree))
 
 summary(as.numeric(mobt1$duree))
@@ -118,5 +126,5 @@ quantile(as.numeric(mobt1$duree),probs = c(0.8,0.90,0.95),na.rm = TRUE)
 aggregate(round(as.numeric(mobt1$duree),digits = 2),list(Parcours = mobt1$tron),function(x) summary(x))
 
 
-
+aggregate(round(as.numeric(e3$duree),digits = 2),list(Parcours = e3$tron),function(x) summary(x))
 
